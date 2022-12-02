@@ -1,0 +1,11 @@
+.DS_Store
+
+.pytest_cache/
+*.pyc
+.venv/
+build/
+dist/
+lib/
+lib64/
+*.egg-info/
+*code-workspace

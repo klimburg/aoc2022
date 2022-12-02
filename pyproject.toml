@@ -1,0 +1,16 @@
+[project]
+name = "aoc2022" 
+version = "0.1.0" 
+description = "My solutions to 2022 Advent of Code"
+requires-python = ">=3.10"
+dependencies = ["black", "isort", "pytest"]
+
+[project.scripts]
+sample = "aoc2022:main"
+
+[tool.setuptools]
+package-data = {"inputs" = ["*.txt"]}
+
+[build-system]
+requires = ["setuptools>=43.0.0", "wheel"]
+build-backend = "setuptools.build_meta"
