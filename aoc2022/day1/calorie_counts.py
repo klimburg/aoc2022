@@ -3,7 +3,7 @@ from aoc2022.utils import read_input
 
 def get_counts_per_elf(input: str) -> list[int]:
     """Input is a string of integers delimited by new lines
-     blank lines indicate start of a new elfs calories
+    blank lines indicate start of a new elfs calories
     """
     calorie_counts: list[int] = []
     calorie_count = 0
@@ -15,6 +15,7 @@ def get_counts_per_elf(input: str) -> list[int]:
             calorie_count += int(line)
     return calorie_counts
 
+
 def solution_a(input_text: str) -> tuple[int, int]:
     counts_per_elf = get_counts_per_elf(input_text)
     max_calories = 0
@@ -25,11 +26,13 @@ def solution_a(input_text: str) -> tuple[int, int]:
             max_index = index
     return max_index, max_calories
 
+
 def solution_b(input_text: str):
     """solution b"""
     counts = get_counts_per_elf(input_text)
     sorted_counts = sorted(counts)
     return sum(sorted_counts[-3:])
+
 
 if __name__ == "__main__":
     # part a
@@ -39,5 +42,3 @@ if __name__ == "__main__":
 
     top_3_calories = solution_b(day1_input)
     print(f"Top 3 elfs have {top_3_calories} Calories!")
-
-
