@@ -1,7 +1,10 @@
+"""Solutions for day 2"""
 from aoc2022.utils import read_input
 
 
 class Hand:
+    """Base class for a rock paper scissors hand"""
+
     hand_value: int
 
     def play(self, other: "Hand") -> int:
@@ -27,6 +30,8 @@ class Rock(Hand):
 
 
 class Paper(Hand):
+    """Paper"""
+
     hand_value = 2
 
     def play(self, other: Hand) -> int:
@@ -42,6 +47,8 @@ class Paper(Hand):
 
 
 class Scissor(Hand):
+    """Scissors"""
+
     hand_value = 3
 
     def play(self, other: Hand) -> int:
@@ -56,17 +63,21 @@ class Scissor(Hand):
                 raise ValueError("Other must be rock, paper or scissors")
 
 
-def get_hand(input: str) -> Hand:
-    match input.lower():
+def get_hand(input_letter: str) -> Hand:
+    """Factory for instantiating hands"""
+    match input_letter.lower():
         case "a" | "x":
             return Rock()
         case "b" | "y":
             return Paper()
         case "c" | "z":
             return Scissor()
+        case _:
+            raise ValueError("Valid inputs must be in ABCXYZ")
 
 
 def play_game(opponent_move: Hand, my_move: Hand) -> int:
+    """Play a game of rock paper scicssor and score it"""
     return my_move.play(opponent_move) + my_move.hand_value
 
 
@@ -75,13 +86,13 @@ def solution_a(input_text: str) -> int:
     games = input_text.strip().split("\n")
     total_score = 0
     for game in games:
-        opponent, me = game.split(" ")
-        total_score += play_game(get_hand(opponent), get_hand(me))
+        opponent, mine = game.split(" ")
+        total_score += play_game(get_hand(opponent), get_hand(mine))
 
     return total_score
 
 
 if __name__ == "__main__":
-    input_text = read_input(2)
-    score = solution_a(input_text)
+    day_2_text = read_input(2)
+    score = solution_a(day_2_text)
     print(f"Total score from strategy {score}")
