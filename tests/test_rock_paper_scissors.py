@@ -9,3 +9,8 @@ C Z
 def test_solution_a():
     score = solution_a(TEST_INPUT)
     assert score == 15
+
+
+def test_solution_b():
+    score = solution_b(TEST_INPUT)
+    assert score == 12

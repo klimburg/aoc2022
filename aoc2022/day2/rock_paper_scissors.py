@@ -23,7 +23,7 @@ class Rock(Hand):
                 return 3
             case Paper():
                 return 0
-            case Scissor():
+            case Scissors():
                 return 6
             case _:
                 raise ValueError("Other must be rock, paper or scissors")
@@ -40,13 +40,13 @@ class Paper(Hand):
                 return 6
             case Paper():
                 return 3
-            case Scissor():
+            case Scissors():
                 return 0
             case _:
                 raise ValueError("Other must be rock, paper or scissors")
 
 
-class Scissor(Hand):
+class Scissors(Hand):
     """Scissors"""
 
     hand_value = 3
@@ -57,23 +57,48 @@ class Scissor(Hand):
                 return 0
             case Paper():
                 return 6
-            case Scissor():
+            case Scissors():
                 return 3
             case _:
                 raise ValueError("Other must be rock, paper or scissors")
 
 
-def get_hand(input_letter: str) -> Hand:
-    """Factory for instantiating hands"""
+HANDS = [Rock, Paper, Scissors]
+
+
+def get_hand_for_part_a(input_letter: str) -> Hand:
+    """Factory for instantiating hands, only valid for part a
+
+    In part b we can still use this for picking opponents hand.
+    """
     match input_letter.lower():
         case "a" | "x":
             return Rock()
         case "b" | "y":
             return Paper()
         case "c" | "z":
-            return Scissor()
+            return Scissors()
         case _:
             raise ValueError("Valid inputs must be in ABCXYZ")
+
+
+def get_my_hand_for_part_b(opponents_hand: Hand, input_letter: str) -> Hand:
+    """Factory for instantiating hands, only valid for part b"""
+    desired_outcome = 0
+    match input_letter.lower():
+        case "x":
+            desired_outcome = 0
+        case "y":
+            desired_outcome = 3
+        case "c" | "z":
+            desired_outcome = 6
+        case _:
+            raise ValueError("Valid inputs must be X, Y, or Z")
+    for hand in HANDS:
+        my_hand = hand()
+        if my_hand.play(opponents_hand) == desired_outcome:
+            return my_hand
+    raise RuntimeError("No solution found this should never happen!")
 
 
 def play_game(opponent_move: Hand, my_move: Hand) -> int:
@@ -87,7 +112,24 @@ def solution_a(input_text: str) -> int:
     total_score = 0
     for game in games:
         opponent, mine = game.split(" ")
-        total_score += play_game(get_hand(opponent), get_hand(mine))
+        total_score += play_game(
+            get_hand_for_part_a(opponent),
+            get_hand_for_part_a(mine),
+        )
+
+    return total_score
+
+
+def solution_b(input_text: str) -> int:
+    games = input_text.strip().split("\n")
+    total_score = 0
+    for game in games:
+        opponent, mine = game.split(" ")
+        opponent_hand = get_hand_for_part_a(opponent)
+        total_score += play_game(
+            opponent_hand,
+            get_my_hand_for_part_b(opponent_hand, mine),
+        )
 
     return total_score
 
@@ -95,4 +137,7 @@ def solution_a(input_text: str) -> int:
 if __name__ == "__main__":
     day_2_text = read_input(2)
     score = solution_a(day_2_text)
-    print(f"Total score from strategy {score}")
+    print(f"Total score from part a strategy {score}")
+
+    score = solution_b(day_2_text)
+    print(f"Total score from part b strategy {score}")
