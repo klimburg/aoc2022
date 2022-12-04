@@ -29,18 +29,7 @@ def fully_overlap(range_a: RangeTuple, range_b: RangeTuple) -> bool:
 
 
 def any_overlap(range_a: RangeTuple, range_b: RangeTuple) -> bool:
-    """Check if there is any overlap in two ranges
-    B starts in A
-    123...
-    ..345
-
-    B ends in A / A starts in B
-    ..345
-    123..
-
-    A ends in B
-
-    """
+    """Check if there is any overlap in two ranges"""
     a_overlaps_b = (range_a[1] >= range_b[0]) & (range_a[0] <= range_b[1])
     b_overlaps_a = (range_b[1] >= range_a[0]) & (range_b[0] <= range_a[1])
 
