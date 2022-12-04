@@ -25,12 +25,12 @@ def fully_overlap(set_a: set[int], set_b: set[int]) -> bool:
 
 
 def any_overlap(set_a: set[int], set_b: set[int]) -> bool:
-    """check if there is any overlap in two sets"""
+    """Check if there is any overlap in two sets"""
     return bool(set_a.intersection(set_b))
 
 
 def solution_a(input_txt: str) -> int:
-    """solution for part a
+    """Solution for part a
 
     How many assignment pairs fully overlap?
     """
@@ -43,7 +43,7 @@ def solution_a(input_txt: str) -> int:
 
 
 def solution_b(input_txt: str) -> int:
-    """solution for part b
+    """Solution for part b
 
     How many assignment pairs partially overlap?
     """
