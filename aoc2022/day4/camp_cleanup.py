@@ -32,7 +32,7 @@ def any_overlap(set_a: set[int], set_b: set[int]) -> bool:
 def solution_a(input_txt: str) -> int:
     """solution for part a
 
-    How many assignment pairs fully overlap
+    How many assignment pairs fully overlap?
     """
     overlaps = 0
     for line in input_txt.strip().split("\n"):
@@ -43,7 +43,10 @@ def solution_a(input_txt: str) -> int:
 
 
 def solution_b(input_txt: str) -> int:
-    """solution for part b"""
+    """solution for part b
+
+    How many assignment pairs partially overlap?
+    """
     overlaps = 0
     for line in input_txt.strip().split("\n"):
         range_a, range_b = parse_line(line)
