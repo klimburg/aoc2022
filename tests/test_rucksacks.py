@@ -1,6 +1,7 @@
 """Tests for day3"""
+# pylint: disable=missing-function-docstring
 
-from aoc2022.day3.rucksacks import *
+from aoc2022.day3.rucksacks import find_badge, find_common_item, solution_a, solution_b
 
 TEST_INPUT = """vJrwpWtwJgWrhcsFMMfFFhFp
 jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL
@@ -12,8 +13,7 @@ CrZsJsPPZsGzwwsLwLmpwMDw
 
 
 def test_solution_a():
-    score = solution_a(TEST_INPUT)
-    assert score == 157
+    assert solution_a(TEST_INPUT) == 157
 
 
 def test_find_common_item():
@@ -31,5 +31,4 @@ def test_find_badge():
 
 
 def test_solution_b():
-    score = solution_b(TEST_INPUT)
-    assert score == 70
+    assert solution_b(TEST_INPUT) == 70
