@@ -14,6 +14,14 @@ def find_common_item(rucksack: str) -> str:
     return common_set.pop()
 
 
+def find_badge(rucksacks: list[str]) -> str:
+    """Take 3 rucksacks and find the common item in all of them, that is the badge"""
+    assert len(rucksacks) == 3
+    common_set = set(rucksacks[0]) & set(rucksacks[1]) & set(rucksacks[2])
+    assert len(common_set) == 1
+    return common_set.pop()
+
+
 def get_item_priority(character: str) -> int:
     """Get an items priority
 
@@ -36,10 +44,19 @@ def solution_a(input_txt: str) -> int:
 
 def solution_b(input_txt: str) -> int:
     """Solution for part b"""
-    return 0
+    rucksacks = input_txt.strip().split()
+    score = 0
+    chunk_size = 3
+    for index in range(0, len(rucksacks), chunk_size):
+        common_item = find_badge(rucksacks[index : index + 3])
+        score += get_item_priority(common_item)
+
+    return score
 
 
 if __name__ == "__main__":
     day3_input = read_input(3)
     score = solution_a(day3_input)
     print(f"Score for part a is {score}")
+    score = solution_b(day3_input)
+    print(f"Score for part b is {score}")

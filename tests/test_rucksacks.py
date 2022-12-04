@@ -20,3 +20,16 @@ def test_find_common_item():
     rucksacks = TEST_INPUT.strip().split()
     common_item = find_common_item(rucksacks[0])
     assert common_item == "p"
+
+
+def test_find_badge():
+    rucksacks = TEST_INPUT.strip().split()
+    badge_1 = find_badge(rucksacks[:3])
+    badge_2 = find_badge(rucksacks[3:])
+    assert badge_1 == "r"
+    assert badge_2 == "Z"
+
+
+def test_solution_b():
+    score = solution_b(TEST_INPUT)
+    assert score == 70
