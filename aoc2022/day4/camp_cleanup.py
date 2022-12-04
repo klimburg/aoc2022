@@ -24,6 +24,11 @@ def fully_overlap(set_a: set[int], set_b: set[int]) -> bool:
     return set_a.issubset(set_b) or set_b.issubset(set_a)
 
 
+def any_overlap(set_a: set[int], set_b: set[int]) -> bool:
+    """check if there is any overlap in two sets"""
+    return bool(set_a.intersection(set_b))
+
+
 def solution_a(input_txt: str) -> int:
     """solution for part a
 
@@ -39,8 +44,12 @@ def solution_a(input_txt: str) -> int:
 
 def solution_b(input_txt: str) -> int:
     """solution for part b"""
-    score = 0
-    return score
+    overlaps = 0
+    for line in input_txt.strip().split("\n"):
+        range_a, range_b = parse_line(line)
+        overlaps += int(any_overlap(range_a, range_b))
+
+    return overlaps
 
 
 if __name__ == "__main__":
@@ -48,4 +57,7 @@ if __name__ == "__main__":
 
     day4_input = read_input(4)
     num_overlaps = solution_a(day4_input)
-    print(f"There were {num_overlaps} pairs that overlapped!")
+    print(f"There were {num_overlaps} pairs that fully overlapped!")
+
+    num_partial_overlaps = solution_b(day4_input)
+    print(f"There were {num_partial_overlaps} pairs that partially overlapped!")

@@ -2,6 +2,7 @@
 import pytest
 
 from aoc2022.day4.camp_cleanup import (
+    any_overlap,
     fully_overlap,
     make_range,
     parse_line,
@@ -34,9 +35,9 @@ def test_parse_line():
 @pytest.mark.parametrize(
     "set_a,set_b,overlap",
     [
-        ({2, 3, 4}, {3, 4}, True),
-        ({3, 4}, {2, 3, 4}, True),
-        ({1, 2, 3}, {4, 5}, False),
+        ({2, 3, 4}, {3, 4}, True),  # right is subset of left
+        ({3, 4}, {2, 3, 4}, True),  # left is subset of right
+        ({1, 2, 3}, {4, 5}, False),  # no subset
     ],
 )
 def test_fully_overlap(set_a, set_b, overlap):
@@ -44,6 +45,24 @@ def test_fully_overlap(set_a, set_b, overlap):
     assert fully_overlap(set_a, set_b) is overlap
 
 
+@pytest.mark.parametrize(
+    "set_a,set_b,overlap",
+    [
+        ({2, 3, 4}, {3}, True),  # full overlap
+        ({2, 3}, {3, 4}, True),  # partial overlap
+        ({1, 2, 3}, {4, 5}, False),  # no overlap
+    ],
+)
+def test_any_overlap(set_a, set_b, overlap):
+    """test given two sets we can determine if either one is a subset of the other"""
+    assert any_overlap(set_a, set_b) is overlap
+
+
 def test_solution_a():
     """Test for solution a"""
     assert solution_a(TEST_INPUT) == 2
+
+
+def test_solution_b():
+    """ "Test for solution b"""
+    assert solution_b(TEST_INPUT) == 4
