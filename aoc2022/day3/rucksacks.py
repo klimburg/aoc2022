@@ -56,7 +56,7 @@ def solution_b(input_txt: str) -> int:
 
 if __name__ == "__main__":
     day3_input = read_input(3)
-    score = solution_a(day3_input)
-    print(f"Score for part a is {score}")
-    score = solution_b(day3_input)
-    print(f"Score for part b is {score}")
+    score_a = solution_a(day3_input)
+    print(f"Score for part a is {score_a}")
+    score_b = solution_b(day3_input)
+    print(f"Score for part b is {score_b}")
