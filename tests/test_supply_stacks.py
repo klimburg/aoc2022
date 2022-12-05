@@ -26,3 +26,6 @@ def test_parse_input():
 
 def test_solution_a():
     assert solution_a(TEST_INPUT) == "CMZ"
+
+def test_solution_b():
+    assert solution_b(TEST_INPUT) == "MCD"

@@ -31,12 +31,31 @@ def parse_input(input_txt: str) -> tuple[list[list[str]], list[str]]:
     return stacks, instructions.strip().split("\n")
 
 
-def move_crates(
+def move_crates_a(
     stacks: list[list[str]], num_crates: int, from_stack: int, to_stack: int
 ) -> list[list[str]]:
-    """Move some crates from one stack to another"""
+    """Move some crates from one stack to another
+
+    This moves 1 at a time
+    """
     for _ in range(num_crates):
         stacks[to_stack].append(stacks[from_stack].pop())
+    return stacks
+
+
+def move_crates_b(
+    stacks: list[list[str]], num_crates: int, from_stack: int, to_stack: int
+) -> list[list[str]]:
+    """Move some crates from one stack to another
+
+    This implementation moves all at once so they retain order
+    """
+    # grab the crates to move
+    moved_crates = stacks[from_stack][-num_crates:]
+    # update the from stack
+    stacks[from_stack] = stacks[from_stack][:-num_crates]
+    # update the to stack
+    stacks[to_stack].extend(moved_crates)
     return stacks
 
 
@@ -48,7 +67,6 @@ def parse_move(input_str: str) -> tuple[int, int, int]:
     Returns: a tuple of number of crates, from stack index and to stack index
     """
     found_values = re.findall(MOVE_PATTERN, input_str)[0]
-    print(found_values)
     assert len(found_values) == 3
     num_crates, from_stack, to_stack = map(int, found_values)
     return num_crates, from_stack - 1, to_stack - 1
@@ -59,15 +77,23 @@ def solution_a(input_txt: str) -> str:
     crates, instructions = parse_input(input_txt)
     for instruction in instructions:
         num_crates, from_idx, to_idx = parse_move(instruction)
-        crates = move_crates(crates, num_crates, from_idx, to_idx)
+        crates = move_crates_a(crates, num_crates, from_idx, to_idx)
     return "".join([stack[-1] for stack in crates])
 
 
 def solution_b(input_txt: str) -> str:
     """solution part b"""
+    crates, instructions = parse_input(input_txt)
+    for instruction in instructions:
+        num_crates, from_idx, to_idx = parse_move(instruction)
+        crates = move_crates_b(crates, num_crates, from_idx, to_idx)
+    return "".join([stack[-1] for stack in crates])
 
 
 if __name__ == "__main__":
     input_day5 = read_input(5)
     message = solution_a(input_day5)
-    print(f"Top crates: {message}")
+    print(f"Top crates a: {message}")
+
+    message = solution_b(input_day5)
+    print(f"Top crates b: {message}")
