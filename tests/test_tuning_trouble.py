@@ -1,6 +1,6 @@
 import pytest
 
-from aoc2022.day6.tuning_trouble import solution_a, solution_b
+from aoc2022.day6.tuning_trouble import solution_a, solution_b, solve_counter
 
 TEST_INPUTS = [
     "mjqjpqmgbljsphdztnvjfqwrcgsmlb",
@@ -21,3 +21,8 @@ def test_solution_a(input, result):
 @pytest.mark.parametrize("input,result", (zip(TEST_INPUTS, TEST_RESULTS_B)))
 def test_solution_b(input, result):
     assert solution_b(input) == result
+
+
+@pytest.mark.parametrize("input,result", (zip(TEST_INPUTS, TEST_RESULTS_B)))
+def test_solution_counter(input, result):
+    assert solve_counter(input, 14) == result
