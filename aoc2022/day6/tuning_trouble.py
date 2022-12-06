@@ -71,8 +71,25 @@ if __name__ == "__main__":
     print(f"Message starts at {start_of_msg}")
 
     # figure out which solution is faster
-    print("\nBenchmarking our solutions")
+    print("\nBenchmarking our solution")
     num_iterations = 100
+    part_a_time = timeit.timeit(
+        "solution_a(day_6_input)",
+        globals=globals(),
+        number=num_iterations,
+    )
+
+    part_b_time = timeit.timeit(
+        "solution_b(day_6_input)",
+        globals=globals(),
+        number=num_iterations,
+    )
+    print(
+        f"avg part_a: {part_a_time / num_iterations * 1000 :1.5f}ms, "
+        f"avg part_b: {part_b_time / num_iterations * 1000 :1.5f}ms, "
+    )
+
+    print("\nBenchmarking our solutions with test inputs")
     false_starts = 40
 
     for n_unique in range(2, len(string.printable) + 1):
