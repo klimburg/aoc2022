@@ -1,7 +1,7 @@
 from aoc2022.utils import read_input
 
 
-def find_end_unique(input_txt: str, n_unique: int):
+def find_end_unique(input_txt: str, n_unique: int) -> int:
     """Find end of a sequence of n unique characters in a longer string"""
     marker = ""
     for idx, char in enumerate(input_txt):
@@ -12,13 +12,15 @@ def find_end_unique(input_txt: str, n_unique: int):
             marker += char
             if len(marker) == n_unique:
                 return idx + 1
+    raise ValueError("No solution found")
 
 
-def find_end_unique_set(input_txt: str, n_unique: int):
+def find_end_unique_set(input_txt: str, n_unique: int) -> int:
     """Find end of a sequence of n unique characters in a longer string"""
     for idx, _ in enumerate(input_txt[n_unique:]):
         if len(set(input_txt[idx : idx + n_unique])) == n_unique:
             return idx + n_unique
+    raise ValueError("No solution found")
 
 
 def solution_a(input_txt: str) -> int:
