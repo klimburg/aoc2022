@@ -75,17 +75,17 @@ if __name__ == "__main__":
         list_time = timeit.timeit(
             "find_end_unique(day_6_input, n_unique)",
             globals=globals(),
-            number=1000,
+            number=100,
         )
         set_time = timeit.timeit(
             "find_end_unique_set(day_6_input, n_unique)",
             globals=globals(),
-            number=1000,
+            number=100,
         )
         counter_time = timeit.timeit(
             "solve_counter(day_6_input, n_unique)",
             globals=globals(),
-            number=1000,
+            number=100,
         )
 
         print(
