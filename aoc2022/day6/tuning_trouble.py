@@ -61,6 +61,7 @@ def solve_counter(input_txt, n_unique):
 
 
 if __name__ == "__main__":
+    import string
     import timeit
 
     day_6_input = read_input(6).strip()
@@ -71,19 +72,27 @@ if __name__ == "__main__":
     print(f"Message starts at {start_of_msg}")
 
     # figure out which solution is faster
-    for n_unique in range(2, 15):
+    for n_unique in range(2, len(string.printable) + 1):
+        false_starts = 40
+        input_text = ""
+        for idx in range(false_starts):
+            # add false starts that are no larger than 20 + idx long otherwise set gets
+            # clobbered
+            input_text += string.printable[: min(20 + idx, n_unique - 1)]
+        input_text += string.printable[:n_unique] + "0"
+
         list_time = timeit.timeit(
-            "find_end_unique(day_6_input, n_unique)",
+            "find_end_unique(input_text, n_unique)",
             globals=globals(),
             number=100,
         )
         set_time = timeit.timeit(
-            "find_end_unique_set(day_6_input, n_unique)",
+            "find_end_unique_set(input_text, n_unique)",
             globals=globals(),
             number=100,
         )
         counter_time = timeit.timeit(
-            "solve_counter(day_6_input, n_unique)",
+            "solve_counter(input_text, n_unique)",
             globals=globals(),
             number=100,
         )
