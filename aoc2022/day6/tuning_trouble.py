@@ -1,3 +1,5 @@
+from collections import Counter
+
 from aoc2022.utils import read_input
 
 
@@ -41,13 +43,8 @@ def solution_b(input_txt: str) -> int:
     return find_end_unique(input_txt, 14)
 
 
-def solve_counter(input_txt, n_unique):
-    from collections import Counter
+def find_end_unique_counter(input_txt: str, n_unique: int) -> int:
 
-    """ 
-    use of counter came from: 
-    https://www.geeksforgeeks.org/python-program-to-check-if-a-string-contains-all-unique-characters/
-    """
     freq = Counter(input_txt[:n_unique])
     for idx, char_to_increment in enumerate(input_txt[n_unique:]):
         if len(freq) == n_unique:  # if every character has a single entry in freq
@@ -58,6 +55,8 @@ def solve_counter(input_txt, n_unique):
             freq[char_to_increment] += 1
             if freq[char_to_decrement] == 0:
                 del freq[char_to_decrement]
+
+    raise (ValueError)
 
 
 if __name__ == "__main__":
@@ -72,8 +71,11 @@ if __name__ == "__main__":
     print(f"Message starts at {start_of_msg}")
 
     # figure out which solution is faster
+    print("\nBenchmarking our solutions")
+    num_iterations = 100
+    false_starts = 40
+
     for n_unique in range(2, len(string.printable) + 1):
-        false_starts = 40
         input_text = ""
         for idx in range(false_starts):
             # add false starts that are no larger than 20 + idx long otherwise set gets
@@ -84,19 +86,22 @@ if __name__ == "__main__":
         list_time = timeit.timeit(
             "find_end_unique(input_text, n_unique)",
             globals=globals(),
-            number=100,
+            number=num_iterations,
         )
         set_time = timeit.timeit(
             "find_end_unique_set(input_text, n_unique)",
             globals=globals(),
-            number=100,
+            number=num_iterations,
         )
         counter_time = timeit.timeit(
-            "solve_counter(input_text, n_unique)",
+            "find_end_unique_counter(input_text, n_unique)",
             globals=globals(),
-            number=100,
+            number=num_iterations,
         )
 
         print(
-            f"n_unique: {n_unique}, list time: {list_time:1.5f}, set time: {set_time:1.5f}, counter time: {counter_time:1.5f}"
+            f"n_unique: {n_unique}, "
+            f"avg list time: {list_time / num_iterations * 1000 :1.5f}ms, "
+            f"avg set time: {set_time / num_iterations * 1000 :1.5f}ms, "
+            f"avg counter time: {counter_time / num_iterations * 1000:1.5f}ms"
         )
