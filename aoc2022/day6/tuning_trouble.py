@@ -27,7 +27,7 @@ def solution_a(input_txt: str) -> int:
     Identify the first position where the four most
     recently received characters were all different.
     """
-    return find_end_unique_set(input_txt, 4)
+    return find_end_unique(input_txt, 4)
 
 
 def solution_b(input_txt: str) -> int:
@@ -36,13 +36,32 @@ def solution_b(input_txt: str) -> int:
     Identify the first position where the 14 most
     recently received characters were all different.
     """
-    return find_end_unique_set(input_txt, 14)
+    return find_end_unique(input_txt, 14)
 
 
 if __name__ == "__main__":
+    import timeit
+
     day_6_input = read_input(6).strip()
     start_of_packet = solution_a(day_6_input)
     print(f"Packet starts at {start_of_packet}")
 
     start_of_msg = solution_b(day_6_input)
     print(f"Message starts at {start_of_msg}")
+
+    # figure out which solution is faster
+    for n_unique in range(2, 16):
+        list_time = timeit.timeit(
+            "find_end_unique(day_6_input, n_unique)",
+            globals=globals(),
+            number=100,
+        )
+        set_time = timeit.timeit(
+            "find_end_unique_set(day_6_input, n_unique)",
+            globals=globals(),
+            number=100,
+        )
+
+        print(
+            f"n_unique: {n_unique}, list time: {list_time:1.5f}, set_time: {set_time:1.5f}"
+        )
