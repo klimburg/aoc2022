@@ -89,5 +89,5 @@ if __name__ == "__main__":
         )
 
         print(
-            f"n_unique: {n_unique}, list time: {list_time:1.5f}, set time: {set_time:1.5f}, counter time: {set_time:1.5f}"
+            f"n_unique: {n_unique}, list time: {list_time:1.5f}, set time: {set_time:1.5f}, counter time: {counter_time:1.5f}"
         )
