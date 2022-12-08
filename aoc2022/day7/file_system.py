@@ -1,6 +1,7 @@
 from collections import defaultdict
 import os
 
+
 def solution_a(input_txt: str) -> int:
     """solve part a
 
@@ -46,7 +47,14 @@ def get_directory_sizes(input_txt: str) -> dict[str, int]:
 
 def solution_b(input_txt: str) -> int:
     """solve part b"""
-    return 0
+    TOTAL_DISK_SPACE = 70_000_000
+    SPACE_NEEDED = 30_000_000
+    dir_sizes = get_directory_sizes(input_txt)
+    actual_size = dir_sizes["/"]
+    available = TOTAL_DISK_SPACE - actual_size
+    to_delete = SPACE_NEEDED - available
+    big_enough = [dir_size for dir_size in dir_sizes.values() if dir_size > to_delete]
+    return sorted(big_enough)[0]
 
 
 if __name__ == "__main__":
@@ -54,3 +62,4 @@ if __name__ == "__main__":
 
     day7_input = read_input(7)
     print("Solution A: ", solution_a(day7_input))
+    print("Solution B: ", solution_b(day7_input))

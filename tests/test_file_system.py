@@ -36,3 +36,7 @@ def test_get_directory_sizes():
 
 def test_solution_a():
     assert solution_a(TEST_INPUT) == 95437
+
+
+def test_solution_b():
+    assert solution_b(TEST_INPUT) == 24933642
